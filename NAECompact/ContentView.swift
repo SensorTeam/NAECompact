@@ -18,13 +18,30 @@ struct ContentView: View {
             GeometryReader { geometry in
                 ZStack {
                     Rectangle()
-                        .foregroundColor(.secondary)
+                        .foregroundColor(.black)
                     self.image?
                         .resizable()
                         .aspectRatio(contentMode: .fill)
+                    VStack {
+                        Rectangle()
+                            .frame(width: 64.0, height: 48.0)
+                            .foregroundColor(.clear)
+                            .border(Color.green, width: 3.0)
+                            .cornerRadius(4.0)
+                        ZStack {
+                            Rectangle()
+                                .foregroundColor(.green)
+                            Text("Sheep")
+                                .font(.caption)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.white)
+                        }
+                        .frame(width: 64.0, height: 24.0)
+                        .cornerRadius(4.0)
+                    }
 
                 }
-                .frame(maxWidth: .infinity, maxHeight: geometry.size.width * (9/16))
+                .frame(maxWidth: .infinity, maxHeight: geometry.size.width * 1.44)
                 .cornerRadius(8.0)
                 .shadow(radius: 10)
             }
