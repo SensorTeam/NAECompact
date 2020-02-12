@@ -11,6 +11,7 @@ import SwiftUI
 struct ContentView: View {
 
     @State var image: Image? = nil
+    @State var showImagePicker: Bool = false
 
     var body: some View {
         ZStack {
@@ -19,7 +20,7 @@ struct ContentView: View {
                 .edgesIgnoringSafeArea(.all)
             VStack {
                 TitleBar()
-                if (image != nil) {
+                if (image == nil) {
                     Text("Choose photo to start")
                         .foregroundColor(Color("Tertiary"))
                         .fontWeight(.bold)
@@ -30,6 +31,16 @@ struct ContentView: View {
                             Rectangle()
                                 .foregroundColor(Color("Background"))
                                 .cornerRadius(8.0)
+                            self.image?
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(maxWidth: geometry.size.width, maxHeight: geometry.size.height)
+                                .mask(
+                                    Rectangle()
+                                        .foregroundColor(Color("Background"))
+                                        .cornerRadius(8.0)
+                                        .frame(maxWidth: geometry.size.width, maxHeight: geometry.size.height)
+                                )
                             RoundedRectangle(cornerRadius: 7.0)
                                 .stroke(lineWidth: 1.0)
                                 .foregroundColor(Color("Divider"))
@@ -49,9 +60,18 @@ struct ContentView: View {
                         }.padding(32.0)
                     }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 }
-                LibraryButton()
+                Button(action: {
+                    withAnimation: do {
+                        self.showImagePicker.toggle()
+                    }
+                }) {
+                    LibraryButton()
+                }.foregroundColor(Color("Background"))
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .sheet(isPresented: $showImagePicker) {
+                ImagePicker(image: self.$image)
+            }
         }
     }
 }
@@ -152,4 +172,47 @@ struct ClassificationLabel: View {
             }
         }
     }
+}
+
+struct ImagePicker: UIViewControllerRepresentable {
+
+    @Environment(\.presentationMode)
+    var presentationMode
+
+    @Binding var image: Image?
+
+    class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+
+        @Binding var presentationMode: PresentationMode
+        @Binding var image: Image?
+
+        init(presentationMode: Binding<PresentationMode>, image: Binding<Image?>) {
+            _presentationMode = presentationMode
+            _image = image
+        }
+
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            let uiImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+            image = Image(uiImage: uiImage)
+            presentationMode.dismiss()
+        }
+
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+            presentationMode.dismiss()
+        }
+    }
+
+    func makeCoordinator() -> Coordinator {
+        return Coordinator(presentationMode: presentationMode, image: $image)
+    }
+
+    func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
+        let picker = UIImagePickerController()
+        picker.delegate = context.coordinator
+        return picker
+    }
+
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: UIViewControllerRepresentableContext<ImagePicker>) {
+    }
+
 }
