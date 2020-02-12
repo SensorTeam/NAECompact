@@ -11,56 +11,47 @@ import SwiftUI
 struct ContentView: View {
 
     @State var image: Image? = nil
-    @State var showImagePicker: Bool = false
 
     var body: some View {
-        VStack {
-            GeometryReader { geometry in
-                ZStack {
-                    Rectangle()
-                        .foregroundColor(.black)
-                    self.image?
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                    VStack {
-                        Rectangle()
-                            .frame(width: 64.0, height: 48.0)
-                            .foregroundColor(.clear)
-                            .border(Color.green, width: 3.0)
-                            .cornerRadius(4.0)
-                        ZStack {
-                            Rectangle()
-                                .foregroundColor(.green)
-                            Text("Sheep")
-                                .font(.caption)
-                                .fontWeight(.semibold)
-                                .foregroundColor(.white)
-                        }
-                        .frame(width: 64.0, height: 24.0)
-                        .cornerRadius(4.0)
-                    }
-
-                }
-                .frame(maxWidth: .infinity, maxHeight: geometry.size.width * 1.44)
-                .cornerRadius(8.0)
-                .shadow(radius: 10)
-            }
-            .frame(maxHeight: 256.0)
-            .padding(16.0)
+        ZStack {
+            Rectangle()
+                .foregroundColor(Color("Background"))
+                .edgesIgnoringSafeArea(.all)
             VStack {
-                Button(action: {
-                    withAnimation: do {
-                        self.showImagePicker.toggle()
-                    }
-                }) {
-                    Text("Choose Image")
+                TitleBar()
+                if (image != nil) {
+                    Text("Choose photo to start")
+                        .foregroundColor(Color("Tertiary"))
                         .fontWeight(.bold)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                } else {
+                    VStack {
+                        GeometryReader { geometry in
+                            Rectangle()
+                                .foregroundColor(Color("Background"))
+                                .cornerRadius(8.0)
+                            RoundedRectangle(cornerRadius: 7.0)
+                                .stroke(lineWidth: 1.0)
+                                .foregroundColor(Color("Divider"))
+                                .frame(maxWidth: geometry.size.width - 2, maxHeight: geometry.size.height - 2)
+                                .offset(x: 1.0, y: 1.0)
+                            RoundedRectangle(cornerRadius: 4.0)
+                                .stroke(lineWidth: 4.0)
+                                .foregroundColor(Color("Accent"))
+                                .frame(maxWidth: 96.0, maxHeight: 69.0)
+                                .offset(x: 94.0, y: 70.0)
+                        }
                         .padding(16.0)
+                        .frame(maxHeight: 272.0)
+                        HStack {
+                            ClassificationLabel(label: "Ringtail Possum")
+                            ClassificationConfidence(confidence: 0.67)
+                        }.padding(32.0)
+                    }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 }
+                LibraryButton()
             }
-            .sheet(isPresented: $showImagePicker) {
-                ImagePicker(image: self.$image)
-            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         }
     }
 }
@@ -71,50 +62,94 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 
-struct ImagePicker: UIViewControllerRepresentable {
+struct TitleBar: View {
+    var body: some View {
+        Text("Wildlife Identifier")
+            .foregroundColor(Color("Primary"))
+            .fontWeight(.bold)
+            .frame(maxWidth: .infinity, maxHeight: 44.0)
+    }
+}
 
-    @Environment(\.presentationMode)
-    var presentationMode
-
-    @Binding var image: Image?
-
-    class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-
-        @Binding var presentationMode: PresentationMode
-        @Binding var image: Image?
-
-        init(presentationMode: Binding<PresentationMode>, image: Binding<Image?>) {
-            _presentationMode = presentationMode
-            _image = image
+struct LibraryButton: View {
+    var body: some View {
+        GeometryReader { screenGeometry in
+            ZStack {
+                Rectangle()
+                    .foregroundColor(Color("Primary"))
+                    .cornerRadius(28.0)
+                Text("Choose Photo")
+                    .fontWeight(.bold)
+            }
+            .frame(maxWidth: screenGeometry.size.width - 64.0, maxHeight: 56.0)
         }
+        .frame(maxWidth: .infinity, maxHeight: 56.0)
+    }
+}
 
-        func imagePickerController(_ picker: UIImagePickerController,
-                                   didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            let uiImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
-            image = Image(uiImage: uiImage)
-            presentationMode.dismiss()
+struct ClassificationConfidence: View {
+    @State var confidence: Float = 0.0
 
+    var percentConfidence: String {
+        let nf = NumberFormatter()
+        nf.numberStyle = .percent
+        return nf.string(from: NSNumber(value: confidence)) ?? "0%"
+    }
+
+    var body: some View {
+        ZStack {
+            if (confidence > 0.0) {
+                Circle()
+                    .stroke(lineWidth: 4.0)
+                    .foregroundColor(Color("Accent"))
+                    .opacity(0.2)
+                Circle()
+                    .trim(from: 0.0, to: CGFloat(min(self.confidence, 1.0)))
+                    .stroke(style: StrokeStyle(lineWidth: 4.0, lineCap: .round, lineJoin: .round))
+                    .foregroundColor(Color("Accent"))
+                    .rotationEffect(Angle(degrees: 270.0))
+            } else {
+                Circle()
+                    .stroke(lineWidth: 4.0)
+                    .foregroundColor(Color("Primary"))
+                    .opacity(0.2)
+            }
+            Text("\(percentConfidence)")
+                .foregroundColor(Color("Primary"))
+                .font(.footnote)
+                .fontWeight(.bold)
+        }.frame(maxWidth: 48.0, maxHeight: 48.0)
+    }
+}
+
+struct ClassificationLabel: View {
+    @State var label: String
+
+    var body: some View {
+        VStack {
+            if (label != "") {
+                Text("Detected")
+                    .foregroundColor(Color("Accent"))
+                    .font(.footnote)
+                    .fontWeight(.bold)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                Text("\(label)")
+                    .foregroundColor(Color("Primary"))
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            } else {
+                Text("Detected")
+                    .foregroundColor(Color("Secondary"))
+                    .font(.footnote)
+                    .fontWeight(.bold)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                Text("None Detected")
+                    .foregroundColor(Color("Primary"))
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
         }
-
-        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-            presentationMode.dismiss()
-        }
-
     }
-
-    func makeCoordinator() -> Coordinator {
-        return Coordinator(presentationMode: presentationMode, image: $image)
-    }
-
-    func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
-        let picker = UIImagePickerController()
-        picker.delegate = context.coordinator
-        return picker
-    }
-
-    func updateUIViewController(_ uiViewController: UIImagePickerController,
-                                context: UIViewControllerRepresentableContext<ImagePicker>) {
-
-    }
-
 }
