@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		073E488323F55877009C10B2 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073E488223F55877009C10B2 /* ImagePicker.swift */; };
 		07AF297823F1509E00DC4BBC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AF297723F1509E00DC4BBC /* AppDelegate.swift */; };
 		07AF297A23F1509E00DC4BBC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AF297923F1509E00DC4BBC /* SceneDelegate.swift */; };
 		07AF297D23F1509E00DC4BBC /* NAECompact.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 07AF297B23F1509E00DC4BBC /* NAECompact.xcdatamodeld */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		073E488223F55877009C10B2 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		07AF297423F1509E00DC4BBC /* NAECompact.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NAECompact.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07AF297723F1509E00DC4BBC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07AF297923F1509E00DC4BBC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 				07AF297723F1509E00DC4BBC /* AppDelegate.swift */,
 				07AF297923F1509E00DC4BBC /* SceneDelegate.swift */,
 				07AF297E23F1509E00DC4BBC /* ContentView.swift */,
+				073E488223F55877009C10B2 /* ImagePicker.swift */,
 				07AF298023F1509F00DC4BBC /* Assets.xcassets */,
 				07AF298523F1509F00DC4BBC /* LaunchScreen.storyboard */,
 				07AF298823F1509F00DC4BBC /* Info.plist */,
@@ -151,6 +154,7 @@
 			files = (
 				07AF297D23F1509E00DC4BBC /* NAECompact.xcdatamodeld in Sources */,
 				07AF297823F1509E00DC4BBC /* AppDelegate.swift in Sources */,
+				073E488323F55877009C10B2 /* ImagePicker.swift in Sources */,
 				07AF297F23F1509E00DC4BBC /* ContentView.swift in Sources */,
 				07AF297A23F1509E00DC4BBC /* SceneDelegate.swift in Sources */,
 			);

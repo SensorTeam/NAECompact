@@ -10,8 +10,8 @@ import SwiftUI
 
 struct ContentView: View {
 
-    @State var image: Image? = nil
-    @State var showImagePicker: Bool = false
+    @State private var image: Image? = nil
+    @State private var showingImagePicker: Bool = false
 
     var body: some View {
         ZStack {
@@ -39,7 +39,7 @@ struct ContentView: View {
                 }
                 Button(action: {
                     withAnimation: do {
-                        self.showImagePicker.toggle()
+                        self.showingImagePicker.toggle()
                     }
                 }) {
                     LibraryButton()
@@ -47,7 +47,7 @@ struct ContentView: View {
                 .foregroundColor(Color("Background"))
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            .sheet(isPresented: $showImagePicker) {
+            .sheet(isPresented: $showingImagePicker) {
                 ImagePicker(image: self.$image)
             }
         }
@@ -186,47 +186,4 @@ struct LibraryButton: View {
         .frame(maxWidth: .infinity, maxHeight: 56.0)
         .padding(.bottom, 32.0)
     }
-}
-
-struct ImagePicker: UIViewControllerRepresentable {
-
-    @Environment(\.presentationMode)
-    var presentationMode
-
-    @Binding var image: Image?
-
-    class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-
-        @Binding var presentationMode: PresentationMode
-        @Binding var image: Image?
-
-        init(presentationMode: Binding<PresentationMode>, image: Binding<Image?>) {
-            _presentationMode = presentationMode
-            _image = image
-        }
-
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            let uiImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
-            image = Image(uiImage: uiImage)
-            presentationMode.dismiss()
-        }
-
-        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-            presentationMode.dismiss()
-        }
-    }
-
-    func makeCoordinator() -> Coordinator {
-        return Coordinator(presentationMode: presentationMode, image: $image)
-    }
-
-    func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
-        let picker = UIImagePickerController()
-        picker.delegate = context.coordinator
-        return picker
-    }
-
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: UIViewControllerRepresentableContext<ImagePicker>) {
-    }
-
 }
