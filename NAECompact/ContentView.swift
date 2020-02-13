@@ -18,7 +18,7 @@ struct ContentView: View {
             Rectangle()
                 .foregroundColor(Color("Background"))
                 .edgesIgnoringSafeArea(.all)
-            VStack {
+            VStack(spacing: 0) {
                 TitleBar()
                 if (image == nil) {
                     Text("Choose photo to start")
@@ -26,39 +26,16 @@ struct ContentView: View {
                         .fontWeight(.bold)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else {
-                    VStack {
-                        GeometryReader { geometry in
-                            Rectangle()
-                                .foregroundColor(Color("Background"))
-                                .cornerRadius(8.0)
-                            self.image?
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(maxWidth: geometry.size.width, maxHeight: geometry.size.height)
-                                .mask(
-                                    Rectangle()
-                                        .foregroundColor(Color("Background"))
-                                        .cornerRadius(8.0)
-                                        .frame(maxWidth: geometry.size.width, maxHeight: geometry.size.height)
-                                )
-                            RoundedRectangle(cornerRadius: 7.0)
-                                .stroke(lineWidth: 1.0)
-                                .foregroundColor(Color("Divider"))
-                                .frame(maxWidth: geometry.size.width - 2, maxHeight: geometry.size.height - 2)
-                                .offset(x: 1.0, y: 1.0)
-                            RoundedRectangle(cornerRadius: 4.0)
-                                .stroke(lineWidth: 4.0)
-                                .foregroundColor(Color("Accent"))
-                                .frame(maxWidth: 96.0, maxHeight: 69.0)
-                                .offset(x: 94.0, y: 70.0)
-                        }
-                        .padding(16.0)
-                        .frame(maxHeight: 272.0)
+                    VStack(spacing: 0) {
+                        ClassificationImage(image: image)
                         HStack {
                             ClassificationLabel(label: "Ringtail Possum")
                             ClassificationConfidence(confidence: 0.67)
-                        }.padding(32.0)
-                    }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                        }
+                        .padding(.horizontal, 32.0)
+                        .padding(.vertical, 16.0)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 }
                 Button(action: {
                     withAnimation: do {
@@ -66,7 +43,8 @@ struct ContentView: View {
                     }
                 }) {
                     LibraryButton()
-                }.foregroundColor(Color("Background"))
+                }
+                .foregroundColor(Color("Background"))
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             .sheet(isPresented: $showImagePicker) {
@@ -88,22 +66,41 @@ struct TitleBar: View {
             .foregroundColor(Color("Primary"))
             .fontWeight(.bold)
             .frame(maxWidth: .infinity, maxHeight: 44.0)
+            .padding(.bottom, 16.0)
     }
 }
 
-struct LibraryButton: View {
+struct ClassificationImage: View {
+    @State var image: Image? = nil
+
     var body: some View {
-        GeometryReader { screenGeometry in
-            ZStack {
-                Rectangle()
-                    .foregroundColor(Color("Primary"))
-                    .cornerRadius(28.0)
-                Text("Choose Photo")
-                    .fontWeight(.bold)
-            }
-            .frame(maxWidth: screenGeometry.size.width - 64.0, maxHeight: 56.0)
+        GeometryReader { geometry in
+            Rectangle()
+                .foregroundColor(Color("Background"))
+                .cornerRadius(8.0)
+            self.image?
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(maxWidth: geometry.size.width, maxHeight: geometry.size.height)
+                .mask(
+                    Rectangle()
+                        .foregroundColor(Color("Background"))
+                        .cornerRadius(8.0)
+                        .frame(maxWidth: geometry.size.width, maxHeight: geometry.size.height)
+            )
+            RoundedRectangle(cornerRadius: 7.0)
+                .stroke(lineWidth: 1.0)
+                .foregroundColor(Color("Divider"))
+                .frame(maxWidth: geometry.size.width - 2, maxHeight: geometry.size.height - 2)
+                .offset(x: 1.0, y: 1.0)
+            RoundedRectangle(cornerRadius: 4.0)
+                .stroke(lineWidth: 4.0)
+                .foregroundColor(Color("Accent"))
+                .frame(maxWidth: 96.0, maxHeight: 69.0)
+                .offset(x: 94.0, y: 70.0)
         }
-        .frame(maxWidth: .infinity, maxHeight: 56.0)
+        .padding(.horizontal, 16.0)
+        .frame(maxHeight: 240.0)
     }
 }
 
@@ -171,6 +168,23 @@ struct ClassificationLabel: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
+    }
+}
+
+struct LibraryButton: View {
+    var body: some View {
+        GeometryReader { screenGeometry in
+            ZStack {
+                Rectangle()
+                    .foregroundColor(Color("Primary"))
+                    .cornerRadius(28.0)
+                Text("Choose Photo")
+                    .fontWeight(.bold)
+            }
+            .frame(maxWidth: screenGeometry.size.width - 64.0)
+        }
+        .frame(maxWidth: .infinity, maxHeight: 56.0)
+        .padding(.bottom, 32.0)
     }
 }
 
