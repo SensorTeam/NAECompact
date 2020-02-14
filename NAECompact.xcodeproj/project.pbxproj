@@ -62,16 +62,10 @@
 		07AF297623F1509E00DC4BBC /* NAECompact */ = {
 			isa = PBXGroup;
 			children = (
-				073E488423F55F21009C10B2 /* WildlifeClassifier.mlmodel */,
-				07AF297723F1509E00DC4BBC /* AppDelegate.swift */,
-				07AF297923F1509E00DC4BBC /* SceneDelegate.swift */,
-				07AF297E23F1509E00DC4BBC /* ContentView.swift */,
-				073E488223F55877009C10B2 /* ImagePicker.swift */,
-				07AF298023F1509F00DC4BBC /* Assets.xcassets */,
-				07AF298523F1509F00DC4BBC /* LaunchScreen.storyboard */,
+				07C67BE023F6AD7D000450E6 /* Resources */,
+				07C67BE223F6ADA6000450E6 /* Sources */,
 				07AF298823F1509F00DC4BBC /* Info.plist */,
 				07AF297B23F1509E00DC4BBC /* NAECompact.xcdatamodeld */,
-				07AF298223F1509F00DC4BBC /* Preview Content */,
 			);
 			path = NAECompact;
 			sourceTree = "<group>";
@@ -82,6 +76,28 @@
 				07AF298323F1509F00DC4BBC /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		07C67BE023F6AD7D000450E6 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				07AF298223F1509F00DC4BBC /* Preview Content */,
+				073E488423F55F21009C10B2 /* WildlifeClassifier.mlmodel */,
+				07AF298023F1509F00DC4BBC /* Assets.xcassets */,
+				07AF298523F1509F00DC4BBC /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		07C67BE223F6ADA6000450E6 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				07AF297723F1509E00DC4BBC /* AppDelegate.swift */,
+				07AF297923F1509E00DC4BBC /* SceneDelegate.swift */,
+				07AF297E23F1509E00DC4BBC /* ContentView.swift */,
+				073E488223F55877009C10B2 /* ImagePicker.swift */,
+			);
+			path = Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -297,7 +313,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"NAECompact/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"NAECompact/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = 485RTMW4S8;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = NAECompact/Info.plist;
@@ -317,7 +333,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"NAECompact/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"NAECompact/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = 485RTMW4S8;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = NAECompact/Info.plist;
