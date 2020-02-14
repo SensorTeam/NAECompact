@@ -14,6 +14,10 @@ struct ContentView: View {
 
     @State private var showingImagePicker: Bool = false
 
+    fileprivate func classification() {
+        self.contentViewModel.startPredictClassification()
+    }
+
     var body: some View {
         ZStack {
             Rectangle()
@@ -21,28 +25,31 @@ struct ContentView: View {
                 .edgesIgnoringSafeArea(.all)
             VStack(spacing: 0) {
                 TitleBar()
-                if (contentViewModel.image == nil) {
+                if (contentViewModel.uiImage == nil) {
                     Text("Choose photo to start")
                         .foregroundColor(Color("Tertiary"))
                         .fontWeight(.bold)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else {
                     VStack(spacing: 0) {
-                        ClassificationImage(image: contentViewModel.image)
+                        ClassificationImage(uiImage: contentViewModel.uiImage)
                         HStack {
-                            ClassificationLabel(label: "Ringtail Possum")
+                            ClassificationLabel(label: contentViewModel.label)
                             ClassificationConfidence(confidence: 0.67)
                         }
                         .padding(.horizontal, 32.0)
                         .padding(.vertical, 16.0)
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                    .onTapGesture {
+                        self.classification()
+                    }
                 }
                 Button(action: {
                     withAnimation: do {
                         self.showingImagePicker.toggle()
-                        if (self.contentViewModel.image != nil) {
-                            self.contentViewModel.image = nil
+                        if (self.contentViewModel.uiImage != nil) {
+                            self.contentViewModel.uiImage = nil
                         }
                     }
                 }) {
@@ -52,7 +59,7 @@ struct ContentView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             .sheet(isPresented: $showingImagePicker) {
-                ImagePicker(image: self.$contentViewModel.image)
+                ImagePicker(image: self.$contentViewModel.uiImage)
             }
         }
     }
@@ -60,7 +67,7 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(contentViewModel: ContentViewModel())
+        ContentView(contentViewModel: ContentViewModel(model: WildlifeClassifier().model))
     }
 }
 
@@ -76,14 +83,14 @@ struct TitleBar: View {
 
 struct ClassificationImage: View {
 
-    @State var image: Image? = nil
+    @State var uiImage: UIImage? = nil
 
     var body: some View {
         GeometryReader { geometry in
             Rectangle()
                 .foregroundColor(Color("Background"))
                 .cornerRadius(8.0)
-            self.image?
+            Image(uiImage: self.uiImage!)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(maxWidth: geometry.size.width, maxHeight: geometry.size.height)
@@ -92,7 +99,7 @@ struct ClassificationImage: View {
                         .foregroundColor(Color("Background"))
                         .cornerRadius(8.0)
                         .frame(maxWidth: geometry.size.width, maxHeight: geometry.size.height)
-            )
+                )
             RoundedRectangle(cornerRadius: 7.0)
                 .stroke(lineWidth: 1.0)
                 .foregroundColor(Color("Divider"))
