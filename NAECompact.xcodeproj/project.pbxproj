@@ -16,6 +16,7 @@
 		07AF298123F1509F00DC4BBC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07AF298023F1509F00DC4BBC /* Assets.xcassets */; };
 		07AF298423F1509F00DC4BBC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07AF298323F1509F00DC4BBC /* Preview Assets.xcassets */; };
 		07AF298723F1509F00DC4BBC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07AF298523F1509F00DC4BBC /* LaunchScreen.storyboard */; };
+		07C67BE423F6AE6D000450E6 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C67BE323F6AE6D000450E6 /* ContentViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		07AF298323F1509F00DC4BBC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		07AF298623F1509F00DC4BBC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		07AF298823F1509F00DC4BBC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		07C67BE323F6AE6D000450E6 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 				07AF297923F1509E00DC4BBC /* SceneDelegate.swift */,
 				07AF297E23F1509E00DC4BBC /* ContentView.swift */,
 				073E488223F55877009C10B2 /* ImagePicker.swift */,
+				07C67BE323F6AE6D000450E6 /* ContentViewModel.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -174,6 +177,7 @@
 				07AF297D23F1509E00DC4BBC /* NAECompact.xcdatamodeld in Sources */,
 				07AF297823F1509E00DC4BBC /* AppDelegate.swift in Sources */,
 				073E488323F55877009C10B2 /* ImagePicker.swift in Sources */,
+				07C67BE423F6AE6D000450E6 /* ContentViewModel.swift in Sources */,
 				07AF297F23F1509E00DC4BBC /* ContentView.swift in Sources */,
 				07AF297A23F1509E00DC4BBC /* SceneDelegate.swift in Sources */,
 				073E488523F55F21009C10B2 /* WildlifeClassifier.mlmodel in Sources */,

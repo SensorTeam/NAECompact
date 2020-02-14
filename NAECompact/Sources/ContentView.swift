@@ -10,7 +10,8 @@ import SwiftUI
 
 struct ContentView: View {
 
-    @State private var image: Image? = nil
+    @ObservedObject var contentViewModel: ContentViewModel
+
     @State private var showingImagePicker: Bool = false
 
     var body: some View {
@@ -20,14 +21,14 @@ struct ContentView: View {
                 .edgesIgnoringSafeArea(.all)
             VStack(spacing: 0) {
                 TitleBar()
-                if (image == nil) {
+                if (contentViewModel.image == nil) {
                     Text("Choose photo to start")
                         .foregroundColor(Color("Tertiary"))
                         .fontWeight(.bold)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else {
                     VStack(spacing: 0) {
-                        ClassificationImage(image: image)
+                        ClassificationImage(image: contentViewModel.image)
                         HStack {
                             ClassificationLabel(label: "Ringtail Possum")
                             ClassificationConfidence(confidence: 0.67)
@@ -40,8 +41,8 @@ struct ContentView: View {
                 Button(action: {
                     withAnimation: do {
                         self.showingImagePicker.toggle()
-                        if (self.image != nil) {
-                            self.image = nil
+                        if (self.contentViewModel.image != nil) {
+                            self.contentViewModel.image = nil
                         }
                     }
                 }) {
@@ -51,7 +52,7 @@ struct ContentView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             .sheet(isPresented: $showingImagePicker) {
-                ImagePicker(image: self.$image)
+                ImagePicker(image: self.$contentViewModel.image)
             }
         }
     }
@@ -59,7 +60,7 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(contentViewModel: ContentViewModel())
     }
 }
 
