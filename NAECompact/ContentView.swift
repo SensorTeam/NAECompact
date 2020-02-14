@@ -40,6 +40,9 @@ struct ContentView: View {
                 Button(action: {
                     withAnimation: do {
                         self.showingImagePicker.toggle()
+                        if (self.image != nil) {
+                            self.image = nil
+                        }
                     }
                 }) {
                     LibraryButton()
@@ -71,6 +74,7 @@ struct TitleBar: View {
 }
 
 struct ClassificationImage: View {
+
     @State var image: Image? = nil
 
     var body: some View {
