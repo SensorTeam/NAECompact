@@ -10,17 +10,17 @@ import SwiftUI
 
 struct DetectionsList: View {
 
-    @State var detections: [Detection]
+    @Binding var detections: [Detection]
 
     var body: some View {
         ZStack {
             Rectangle()
                 .foregroundColor(.clear)
 
-            if (detections.count > 0) {
+            if (!detections.isEmpty) {
                 VStack(spacing: 0) {
                     ForEach(0..<detections.endIndex) { index in
-                        DetectionRow(label: self.detections[index].label, confidence: self.detections[index].confidence, isProminent: index == 0)
+                        DetectionRow(label: self.$detections[index].label, confidence: self.$detections[index].confidence, isProminent: index == 0)
                     }
                 }
             } else {
@@ -40,9 +40,10 @@ struct DetectionsList: View {
 
 struct DetectionRow: View {
 
-    @State var label: String
-    @State var confidence: Float
-    @State var isProminent: Bool
+    @Binding var label: String
+    @Binding var confidence: Float
+
+    var isProminent: Bool
 
     var body: some View {
         VStack(spacing: 0) {
@@ -73,7 +74,7 @@ struct DetectionRow: View {
                 }
 
                 // Confidence spark-chart
-                ConfidenceGauge(confidence: self.confidence, isProminent: self.isProminent)
+                ConfidenceGauge(confidence: self.$confidence, isProminent: self.isProminent)
             }
             .foregroundColor(Color("Primary"))
         }
@@ -82,8 +83,9 @@ struct DetectionRow: View {
 
 struct ConfidenceGauge: View {
 
-    @State var confidence: Float
-    @State var isProminent: Bool
+    @Binding var confidence: Float
+
+    var isProminent: Bool
 
     var confidenceAsPercent: String {
         if (self.confidence > 0.1) {
@@ -127,7 +129,7 @@ struct DetectionsList_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             // State 1 of 2: No Detection
-            DetectionsList(detections: [Detection]())
+            DetectionsList(detections: .constant([]))
                 .previewLayout(.fixed(width: 375.0, height: 394.0))
                 .background(
                     Rectangle()
@@ -135,13 +137,13 @@ struct DetectionsList_Previews: PreviewProvider {
             )
 
             // State 2 of 2: Has Detections
-            DetectionsList(detections: [
+            DetectionsList(detections: .constant([
                 Detection(label: "Possum", confidence: 0.9765),
                 Detection(label: "Cat"),
                 Detection(label: "Fox"),
                 Detection(label: "Sheep"),
                 Detection(label: "Cow")
-            ])
+            ]))
                 .previewLayout(.fixed(width: 375.0, height: 394.0))
                 .background(
                     Rectangle()
