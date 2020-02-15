@@ -61,7 +61,7 @@ struct Viewfinder: View {
                     Text("Choose Photo")
                         .fontWeight(.semibold)
                 }
-                .foregroundColor(Color("Secondary"))
+                .foregroundColor(Color("Accent"))
             }
         }
         .padding(16.0)

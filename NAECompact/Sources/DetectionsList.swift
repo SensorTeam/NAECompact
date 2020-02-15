@@ -100,12 +100,12 @@ struct ConfidenceGauge: View {
             Group {
                 Circle()
                     .stroke(lineWidth: 4.0)
-                    .opacity(0.1)
+                    .opacity(0.2)
                 Circle()
                     .trim(from: 0.0, to: CGFloat(min(self.confidence, 1.0)))
                     .stroke(style: StrokeStyle(lineWidth: 4.0, lineCap: .round, lineJoin: .round))
                     .rotationEffect(Angle(degrees: 270.0))
-            }.foregroundColor(self.isProminent ? Color("Accent") : Color("Primary"))
+            }.foregroundColor(self.isProminent ? Color("Accent") : Color("Secondary"))
 
             Text("\(self.confidenceAsPercent)")
                 .font(.system(size: 12.0, weight: .medium, design: .monospaced))
@@ -136,7 +136,7 @@ struct DetectionsList_Previews: PreviewProvider {
 
             // State 2 of 2: Has Detections
             DetectionsList(detections: [
-                Detection(label: "Possum", confidence: 0.5),
+                Detection(label: "Possum", confidence: 0.9765),
                 Detection(label: "Cat"),
                 Detection(label: "Fox"),
                 Detection(label: "Sheep"),
