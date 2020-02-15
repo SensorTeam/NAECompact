@@ -20,7 +20,7 @@ struct DetectionsList: View {
             if (!detections.isEmpty) {
                 VStack(spacing: 0) {
                     ForEach(0..<detections.endIndex) { index in
-                        DetectionRow(label: self.$detections[index].label, confidence: self.$detections[index].confidence, isProminent: index == 0)
+                        DetectionRow(label: self.$detections[index].identifier, confidence: self.$detections[index].confidence, isProminent: index == 0)
                     }
                 }
             } else {
@@ -60,7 +60,7 @@ struct DetectionRow: View {
             HStack {
                 // Label
                 VStack(spacing: 0) {
-                    Text(self.label)
+                    Text(self.label.capitalized)
                         .font(.system(size: 20))
                         .fontWeight(.semibold)
                         .foregroundColor(Color("Primary"))
@@ -119,12 +119,6 @@ struct ConfidenceGauge: View {
     }
 }
 
-struct Detection: Hashable {
-    var id = UUID()
-    var label: String
-    var confidence: Float = Float.random(in: 0..<0.25)
-}
-
 struct DetectionsList_Previews: PreviewProvider {
     static var previews: some View {
         Group {
@@ -138,11 +132,11 @@ struct DetectionsList_Previews: PreviewProvider {
 
             // State 2 of 2: Has Detections
             DetectionsList(detections: .constant([
-                Detection(label: "Possum", confidence: 0.9765),
-                Detection(label: "Cat"),
-                Detection(label: "Fox"),
-                Detection(label: "Sheep"),
-                Detection(label: "Cow")
+                Detection(identifier: "Possum", confidence: 0.9765),
+                Detection(identifier: "Cat"),
+                Detection(identifier: "Fox"),
+                Detection(identifier: "Sheep"),
+                Detection(identifier: "Cow")
             ]))
                 .previewLayout(.fixed(width: 375.0, height: 394.0))
                 .background(
