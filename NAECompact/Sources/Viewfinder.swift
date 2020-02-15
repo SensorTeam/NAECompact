@@ -77,7 +77,7 @@ struct Viewfinder_Previews: PreviewProvider {
                 .background(
                     Rectangle()
                         .foregroundColor(Color("Background"))
-            )
+                )
 
             // State 2 of 3: Image with Detection
             Viewfinder(image: UIImage(named: "Possum"), boundingBox: CGRect(x: 0.25, y: 0.25, width: 0.5, height: 0.5))
@@ -85,7 +85,7 @@ struct Viewfinder_Previews: PreviewProvider {
                 .background(
                     Rectangle()
                         .foregroundColor(Color("Background"))
-            )
+                )
 
             // State 3 of 3: Image without Detection
             Viewfinder(image: UIImage(named: "Possum"), boundingBox: nil)
@@ -93,7 +93,7 @@ struct Viewfinder_Previews: PreviewProvider {
                 .background(
                     Rectangle()
                         .foregroundColor(Color("Background"))
-            )
+                )
         }
     }
 }
