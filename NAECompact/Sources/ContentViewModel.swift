@@ -16,6 +16,8 @@ class ContentViewModel: ObservableObject {
 
     @Published var uiImage: UIImage? = nil
     @Published var label: String = ""
+    @Published var confidence: Float = 0.0
+    @Published var boundingBox: CGRect? = nil
 
     var model: MLModel
 
@@ -49,33 +51,24 @@ class ContentViewModel: ObservableObject {
     private func getProminentDetection(detections: [VNRecognizedObjectObservation]) {
         var prominentDetection: String = ""
         var prominentDetectionConfidence: Float = 0.0
+        var prominentDetectionBoundingBox: CGRect = CGRect(x: 0, y: 0, width: 0, height: 0)
 
         for detection in detections {
-
             for label in detection.labels {
-                print("\(label.identifier)")
-                print("\(label.confidence)")
-
                 if (label.confidence > prominentDetectionConfidence) {
                     prominentDetectionConfidence = label.confidence
                     prominentDetection = label.identifier
+                    prominentDetectionBoundingBox = detection.boundingBox
                 }
             }
-
-            print("\(detection.confidence)")
-            print("\(detection.boundingBox)")
-            print("--------")
-            print("minX \(detection.boundingBox.minX)")
-            print("minY \(detection.boundingBox.minY)")
-            print("width \(detection.boundingBox.width)")
-            print("height \(detection.boundingBox.height)")
         }
 
+        self.confidence = prominentDetectionConfidence
         self.label = prominentDetection
+        self.boundingBox = prominentDetectionBoundingBox
     }
 
     func startPredictClassification() {
-        self.label = "Detecting..."
         let orientation = CGImagePropertyOrientation(rawValue: UInt32(self.uiImage!.imageOrientation.rawValue))
 
         guard let ciImage = CIImage(image: self.uiImage!) else {
@@ -90,6 +83,13 @@ class ContentViewModel: ObservableObject {
                 print("Failed to perform classification.\n\(error.localizedDescription)")
             }
         }
+    }
+
+    func reset() {
+        self.uiImage = nil
+        self.label = ""
+        self.confidence = 0.0
+        self.boundingBox = nil
     }
 
 }

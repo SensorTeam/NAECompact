@@ -31,26 +31,46 @@ struct ContentView: View {
                         .fontWeight(.bold)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else {
-                    VStack(spacing: 0) {
-                        ClassificationImage(uiImage: contentViewModel.uiImage)
-                        HStack {
-                            ClassificationLabel(label: contentViewModel.label)
-                            ClassificationConfidence(confidence: 0.67)
+                    if (contentViewModel.boundingBox == nil) {
+                        VStack(spacing: 0) {
+                            ClassificationImage(uiImage: nil, boundingBox: nil)
+                            if (contentViewModel.label != "") {
+                                HStack {
+                                    ClassificationLabel(label: "Detecting...")
+                                    ClassificationConfidence(confidence: 0.0)
+                                }
+                                .padding(.horizontal, 32.0)
+                                .padding(.vertical, 16.0)
+                            }
                         }
-                        .padding(.horizontal, 32.0)
-                        .padding(.vertical, 16.0)
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                    .onTapGesture {
-                        self.classification()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                        .onAppear {
+                            withAnimation: do {
+                                self.classification()
+                            }
+                        }
+                    } else {
+                        VStack(spacing: 0) {
+                            ClassificationImage(uiImage: contentViewModel.uiImage, boundingBox: contentViewModel.boundingBox)
+                                .onAppear {
+                                    self.classification()
+                                }
+                            if (contentViewModel.label != "") {
+                                HStack {
+                                    ClassificationLabel(label: contentViewModel.label)
+                                    ClassificationConfidence(confidence: contentViewModel.confidence)
+                                }
+                                .padding(.horizontal, 32.0)
+                                .padding(.vertical, 16.0)
+                            }
+                        }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                     }
                 }
                 Button(action: {
                     withAnimation: do {
                         self.showingImagePicker.toggle()
-                        if (self.contentViewModel.uiImage != nil) {
-                            self.contentViewModel.uiImage = nil
-                        }
+                        self.contentViewModel.reset()
                     }
                 }) {
                     LibraryButton()
@@ -84,32 +104,37 @@ struct TitleBar: View {
 struct ClassificationImage: View {
 
     @State var uiImage: UIImage? = nil
+    @State var boundingBox: CGRect? = nil
 
     var body: some View {
         GeometryReader { geometry in
             Rectangle()
                 .foregroundColor(Color("Background"))
                 .cornerRadius(8.0)
-            Image(uiImage: self.uiImage!)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(maxWidth: geometry.size.width, maxHeight: geometry.size.height)
-                .mask(
-                    Rectangle()
-                        .foregroundColor(Color("Background"))
-                        .cornerRadius(8.0)
-                        .frame(maxWidth: geometry.size.width, maxHeight: geometry.size.height)
+            if (self.uiImage != nil) {
+                Image(uiImage: self.uiImage!)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(maxWidth: geometry.size.width, maxHeight: geometry.size.height)
+                    .mask(
+                        Rectangle()
+                            .foregroundColor(Color("Background"))
+                            .cornerRadius(8.0)
+                            .frame(maxWidth: geometry.size.width, maxHeight: geometry.size.height)
                 )
+            }
             RoundedRectangle(cornerRadius: 7.0)
                 .stroke(lineWidth: 1.0)
                 .foregroundColor(Color("Divider"))
                 .frame(maxWidth: geometry.size.width - 2, maxHeight: geometry.size.height - 2)
                 .offset(x: 1.0, y: 1.0)
-            RoundedRectangle(cornerRadius: 4.0)
-                .stroke(lineWidth: 4.0)
-                .foregroundColor(Color("Accent"))
-                .frame(maxWidth: 96.0, maxHeight: 69.0)
-                .offset(x: 94.0, y: 70.0)
+            if (self.boundingBox != nil) {
+                RoundedRectangle(cornerRadius: 4.0)
+                    .stroke(lineWidth: 4.0)
+                    .foregroundColor(Color("Accent"))
+                    .frame(maxWidth: self.boundingBox!.width * geometry.size.width, maxHeight: self.boundingBox!.height * geometry.size.height)
+                    .offset(x: self.boundingBox!.minX * geometry.size.width, y: (1 - self.boundingBox!.minY - self.boundingBox!.height) * geometry.size.height)
+            }
         }
         .padding(.horizontal, 16.0)
         .frame(maxHeight: 240.0)
@@ -162,7 +187,7 @@ struct ClassificationLabel: View {
                     .font(.footnote)
                     .fontWeight(.bold)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                Text("\(label)")
+                Text("\(label.capitalized)")
                     .foregroundColor(Color("Primary"))
                     .font(.title)
                     .fontWeight(.bold)
