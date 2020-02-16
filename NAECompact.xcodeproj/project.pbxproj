@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		071E414423F9156F00E75C3E /* Possums.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 071E414323F9156F00E75C3E /* Possums.mlmodel */; };
+		071E414623F918D300E75C3E /* HostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071E414523F918D300E75C3E /* HostingController.swift */; };
 		073E488523F55F21009C10B2 /* WildlifeClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 073E488423F55F21009C10B2 /* WildlifeClassifier.mlmodel */; };
 		0757769123F804E6000411CE /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0757769023F804E6000411CE /* MainView.swift */; };
 		07AF297823F1509E00DC4BBC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AF297723F1509E00DC4BBC /* AppDelegate.swift */; };
@@ -25,6 +26,7 @@
 
 /* Begin PBXFileReference section */
 		071E414323F9156F00E75C3E /* Possums.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = Possums.mlmodel; sourceTree = "<group>"; };
+		071E414523F918D300E75C3E /* HostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostingController.swift; sourceTree = "<group>"; };
 		073E488423F55F21009C10B2 /* WildlifeClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = WildlifeClassifier.mlmodel; sourceTree = "<group>"; };
 		0757769023F804E6000411CE /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		07AF297423F1509E00DC4BBC /* NAECompact.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NAECompact.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,6 +113,7 @@
 				07F96BD323F8137600DBC43B /* DetectionsList.swift */,
 				07F96BDB23F8ABF500DBC43B /* Detection.swift */,
 				07F96BDD23F8C61800DBC43B /* ImagePicker.swift */,
+				071E414523F918D300E75C3E /* HostingController.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -192,6 +195,7 @@
 				07CB393723F8079700AD8D4B /* Viewfinder.swift in Sources */,
 				07AF297823F1509E00DC4BBC /* AppDelegate.swift in Sources */,
 				07AF297A23F1509E00DC4BBC /* SceneDelegate.swift in Sources */,
+				071E414623F918D300E75C3E /* HostingController.swift in Sources */,
 				073E488523F55F21009C10B2 /* WildlifeClassifier.mlmodel in Sources */,
 				07F96BDE23F8C61800DBC43B /* ImagePicker.swift in Sources */,
 				07F96BDC23F8ABF500DBC43B /* Detection.swift in Sources */,
