@@ -85,6 +85,8 @@ struct ConfidenceGauge: View {
 
     @Binding var confidence: Float
 
+    @State private var progress: CGFloat = 0
+
     var isProminent: Bool
 
     var confidenceAsPercent: String {
@@ -104,9 +106,15 @@ struct ConfidenceGauge: View {
                     .stroke(lineWidth: 4.0)
                     .opacity(0.2)
                 Circle()
-                    .trim(from: 0.0, to: CGFloat(min(self.confidence, 1.0)))
+                    .trim(from: 0.0, to: CGFloat(min(progress, 1.0)))
                     .stroke(style: StrokeStyle(lineWidth: 4.0, lineCap: .round, lineJoin: .round))
                     .rotationEffect(Angle(degrees: 270.0))
+                    .onAppear {
+                        let baseAnimation = Animation.easeInOut(duration: 1)
+                        return withAnimation(baseAnimation) {
+                            self.progress = CGFloat(self.confidence)
+                        }
+                    }
             }.foregroundColor(self.isProminent ? Color("Accent") : Color("Secondary"))
 
             Text("\(self.confidenceAsPercent)")
