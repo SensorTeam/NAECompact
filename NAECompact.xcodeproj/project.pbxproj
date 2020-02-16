@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		071E414423F9156F00E75C3E /* Possums.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 071E414323F9156F00E75C3E /* Possums.mlmodel */; };
 		073E488523F55F21009C10B2 /* WildlifeClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 073E488423F55F21009C10B2 /* WildlifeClassifier.mlmodel */; };
 		0757769123F804E6000411CE /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0757769023F804E6000411CE /* MainView.swift */; };
 		07AF297823F1509E00DC4BBC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AF297723F1509E00DC4BBC /* AppDelegate.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		071E414323F9156F00E75C3E /* Possums.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = Possums.mlmodel; sourceTree = "<group>"; };
 		073E488423F55F21009C10B2 /* WildlifeClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = WildlifeClassifier.mlmodel; sourceTree = "<group>"; };
 		0757769023F804E6000411CE /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		07AF297423F1509E00DC4BBC /* NAECompact.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NAECompact.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -91,6 +93,7 @@
 			children = (
 				07AF298223F1509F00DC4BBC /* Preview Content */,
 				07AF298523F1509F00DC4BBC /* LaunchScreen.storyboard */,
+				071E414323F9156F00E75C3E /* Possums.mlmodel */,
 				073E488423F55F21009C10B2 /* WildlifeClassifier.mlmodel */,
 				07AF298023F1509F00DC4BBC /* Assets.xcassets */,
 			);
@@ -192,6 +195,7 @@
 				073E488523F55F21009C10B2 /* WildlifeClassifier.mlmodel in Sources */,
 				07F96BDE23F8C61800DBC43B /* ImagePicker.swift in Sources */,
 				07F96BDC23F8ABF500DBC43B /* Detection.swift in Sources */,
+				071E414423F9156F00E75C3E /* Possums.mlmodel in Sources */,
 				07F96BDA23F8A8F200DBC43B /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

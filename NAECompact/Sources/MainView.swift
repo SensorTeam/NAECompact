@@ -44,6 +44,6 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(mainViewModel: MainViewModel(mlModel: WildlifeClassifier().model))
+        MainView(mainViewModel: MainViewModel(mlModel: Possums().model))
     }
 }
