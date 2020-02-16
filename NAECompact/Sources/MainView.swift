@@ -12,6 +12,7 @@ struct MainView: View {
 
     @ObservedObject var mainViewModel: MainViewModel
     @State private var showingImagePicker: Bool = false
+    @State private var showingConfig: Bool = false
 
     var body: some View {
         ZStack {
@@ -19,6 +20,20 @@ struct MainView: View {
                 .foregroundColor(Color("Background"))
                 .edgesIgnoringSafeArea(.all)
             VStack(spacing: 0) {
+
+                // Navigation Bar
+                NavigationBar(title: "Wildlife Identifier", symbol: "ellipsis", action: {
+                    withAnimation: do {
+                        self.showingConfig.toggle()
+                    }
+                })
+                .sheet(isPresented: $showingConfig, onDismiss: {
+
+                }) {
+                    ConfigView()
+                }
+
+                // Image Viewfinder
                 Button(action: {
                     withAnimation: do {
                         self.showingImagePicker.toggle()
@@ -26,18 +41,20 @@ struct MainView: View {
                 }) {
                     Viewfinder(image: $mainViewModel.image, boundingBox: $mainViewModel.boundingBox)
                         .frame(maxHeight: 272.0)
+                        .sheet(isPresented: $showingImagePicker, onDismiss: {
+                            self.mainViewModel.startClassification()
+                        }) {
+                            ImagePicker(image: self.$mainViewModel.image)
+                        }
                 }
                 .buttonStyle(PlainButtonStyle())
+
+                // Detections List
                 if (mainViewModel.image != nil) {
                     DetectionsList(detections: $mainViewModel.detections)
                 }
             }
             .frame(maxHeight: .infinity, alignment: .top)
-        }
-        .sheet(isPresented: $showingImagePicker, onDismiss: {
-            self.mainViewModel.startClassification()
-        }) {
-            ImagePicker(image: self.$mainViewModel.image)
         }
     }
 }
