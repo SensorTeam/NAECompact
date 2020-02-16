@@ -9,6 +9,9 @@
 import SwiftUI
 import Combine
 import UIKit
+import CoreML
+import Vision
+import ImageIO
 
 class MainViewModel: ObservableObject {
 
@@ -16,19 +19,67 @@ class MainViewModel: ObservableObject {
     @Published var boundingBox: CGRect? = nil
     @Published var detections: [Detection] = []
 
-    func setImage() {
-        self.image = UIImage(named: "Possum")
+    var model: MLModel
+
+    init(mlModel model: MLModel) {
+        self.model = model
     }
 
-    func setDetections() {
-        self.detections = [
-            Detection(identifier: "possum", confidence: 1.0, boundingBox: CGRect(x: 0.25, y: 0.25, width: 0.5, height: 0.5)),
-            Detection(identifier: "fox"),
-            Detection(identifier: "cat"),
-            Detection(identifier: "cow"),
-            Detection(identifier: "sheep")
-        ]
-        self.boundingBox = self.detections.first?.boundingBox
+    private lazy var classificationRequest: VNCoreMLRequest = {
+        do {
+            let model = try VNCoreMLModel(for: self.model)
+            return VNCoreMLRequest(model: model) { [weak self] (request, error) in
+                self?.processDetections(for: request, error: error)
+            }
+
+        } catch {
+            fatalError("Failed to load ML model. \n\(error)")
+        }
+    }()
+
+    private func processDetections(for request: VNRequest, error: Error?) {
+        DispatchQueue.main.async {
+            guard let results = request.results else {
+                return
+            }
+
+            let detections = results as! [VNRecognizedObjectObservation]
+            self.getProminentDetection(from: detections)
+        }
+    }
+
+    private func getProminentDetection(from results: [VNRecognizedObjectObservation]) {
+        if (!results.isEmpty) {
+            self.detections = (results.first?.labels.map { label in
+                Detection(
+                    identifier: label.identifier,
+                    confidence: label.confidence
+                )
+                })!
+            self.boundingBox = results.first?.boundingBox
+        } else {
+            self.detections = [Detection]()
+            self.boundingBox = nil
+        }
+    }
+
+    func startClassification() {
+        if (self.image != nil) {
+            let orientation = CGImagePropertyOrientation(rawValue: UInt32(self.image!.imageOrientation.rawValue))
+
+            guard let ciImage = CIImage(image: self.image!) else {
+                fatalError("Unable to create \(CIImage.self) from \(String(describing: self.image))")
+            }
+
+            DispatchQueue.global(qos: .userInitiated).async {
+                let handler = VNImageRequestHandler(ciImage: ciImage, orientation: orientation ?? .up)
+                do {
+                    try handler.perform([self.classificationRequest])
+                } catch {
+                    print("Failed to perform classification.\n\(error.localizedDescription)")
+                }
+            }
+        }
     }
 
 }

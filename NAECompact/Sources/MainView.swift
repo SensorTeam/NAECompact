@@ -35,7 +35,7 @@ struct MainView: View {
             .frame(maxHeight: .infinity, alignment: .top)
         }
         .sheet(isPresented: $showingImagePicker, onDismiss: {
-            self.mainViewModel.setDetections()
+            self.mainViewModel.startClassification()
         }) {
             ImagePicker(image: self.$mainViewModel.image)
         }
@@ -44,6 +44,6 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(mainViewModel: MainViewModel())
+        MainView(mainViewModel: MainViewModel(mlModel: WildlifeClassifier().model))
     }
 }

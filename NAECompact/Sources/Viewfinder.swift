@@ -49,7 +49,7 @@ struct Viewfinder: View {
                     .stroke(lineWidth: 1.0)
                     .foregroundColor(Color("Primary"))
                     .opacity(0.1)
-                    .frame(maxWidth: geometry.size.width - 2, maxHeight: geometry.size.height - 2)
+                    .frame(maxWidth: geometry.size.width, maxHeight: geometry.size.height)
             }
 
             // Show button action as placeholder if no image is available
