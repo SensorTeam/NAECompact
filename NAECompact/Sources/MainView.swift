@@ -9,7 +9,9 @@
 import SwiftUI
 
 struct MainView: View {
+
     @ObservedObject var mainViewModel: MainViewModel
+    @State private var showingImagePicker: Bool = false
 
     var body: some View {
         ZStack {
@@ -18,20 +20,24 @@ struct MainView: View {
                 .edgesIgnoringSafeArea(.all)
             VStack(spacing: 0) {
                 Button(action: {
-                    self.mainViewModel.setImage()
-                    self.mainViewModel.setDetections()
+                    withAnimation: do {
+                        self.showingImagePicker.toggle()
+                    }
                 }) {
                     Viewfinder(image: $mainViewModel.image, boundingBox: $mainViewModel.boundingBox)
                         .frame(maxHeight: 272.0)
                 }
                 .buttonStyle(PlainButtonStyle())
                 if (mainViewModel.image != nil) {
-                    ScrollView {
-                        DetectionsList(detections: $mainViewModel.detections)
-                    }
+                    DetectionsList(detections: $mainViewModel.detections)
                 }
             }
             .frame(maxHeight: .infinity, alignment: .top)
+        }
+        .sheet(isPresented: $showingImagePicker, onDismiss: {
+            self.mainViewModel.setDetections()
+        }) {
+            ImagePicker(image: self.$mainViewModel.image)
         }
     }
 }

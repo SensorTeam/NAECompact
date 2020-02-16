@@ -19,6 +19,7 @@
 		07F96BD423F8137600DBC43B /* DetectionsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F96BD323F8137600DBC43B /* DetectionsList.swift */; };
 		07F96BDA23F8A8F200DBC43B /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F96BD923F8A8F200DBC43B /* MainViewModel.swift */; };
 		07F96BDC23F8ABF500DBC43B /* Detection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F96BDB23F8ABF500DBC43B /* Detection.swift */; };
+		07F96BDE23F8C61800DBC43B /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F96BDD23F8C61800DBC43B /* ImagePicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		07F96BD323F8137600DBC43B /* DetectionsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectionsList.swift; sourceTree = "<group>"; };
 		07F96BD923F8A8F200DBC43B /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		07F96BDB23F8ABF500DBC43B /* Detection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detection.swift; sourceTree = "<group>"; };
+		07F96BDD23F8C61800DBC43B /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 				07CB393623F8079700AD8D4B /* Viewfinder.swift */,
 				07F96BD323F8137600DBC43B /* DetectionsList.swift */,
 				07F96BDB23F8ABF500DBC43B /* Detection.swift */,
+				07F96BDD23F8C61800DBC43B /* ImagePicker.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -187,6 +190,7 @@
 				07AF297823F1509E00DC4BBC /* AppDelegate.swift in Sources */,
 				07AF297A23F1509E00DC4BBC /* SceneDelegate.swift in Sources */,
 				073E488523F55F21009C10B2 /* WildlifeClassifier.mlmodel in Sources */,
+				07F96BDE23F8C61800DBC43B /* ImagePicker.swift in Sources */,
 				07F96BDC23F8ABF500DBC43B /* Detection.swift in Sources */,
 				07F96BDA23F8A8F200DBC43B /* MainViewModel.swift in Sources */,
 			);
