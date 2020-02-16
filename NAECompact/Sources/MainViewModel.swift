@@ -19,11 +19,7 @@ class MainViewModel: ObservableObject {
     @Published var boundingBox: CGRect? = nil
     @Published var detections: [Detection] = []
 
-    var model: MLModel
-
-    init(mlModel model: MLModel) {
-        self.model = model
-    }
+    var model: MLModel = Possums().model
 
     private lazy var classificationRequest: VNCoreMLRequest = {
         do {
