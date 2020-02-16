@@ -64,7 +64,9 @@ struct Viewfinder: View {
                 .foregroundColor(Color("Accent"))
             }
         }
-        .padding(16.0)
+        .padding(.top, 16.0)
+        .padding(.leading, 16.0)
+        .padding(.trailing, 16.0)
     }
 }
 

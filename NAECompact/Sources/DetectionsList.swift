@@ -23,6 +23,7 @@ struct DetectionsList: View {
                         DetectionRow(label: self.$detections[index].identifier, confidence: self.$detections[index].confidence, isProminent: index == 0)
                     }
                 }
+                .frame(maxHeight: .infinity, alignment: .top)
             } else {
                 VStack {
                     Image(systemName: "eye.slash")
