@@ -30,7 +30,7 @@ struct MainView: View {
                 .sheet(isPresented: $showingConfig, onDismiss: {
 
                 }) {
-                    ConfigView()
+                    ConfigView(isOn: self.$mainViewModel.usesRealModel)
                 }
 
                 // Image Viewfinder

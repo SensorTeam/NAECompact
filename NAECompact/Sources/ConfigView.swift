@@ -11,7 +11,7 @@ import SwiftUI
 struct ConfigView: View {
     @Environment(\.presentationMode) var presentationMode
 
-    @State private var isOn: Bool = true
+    @Binding var isOn: Bool
 
     var body: some View {
         ZStack {
@@ -43,6 +43,6 @@ struct ConfigView: View {
 
 struct ConfigView_Previews: PreviewProvider {
     static var previews: some View {
-        ConfigView()
+        ConfigView(isOn: .constant(true))
     }
 }

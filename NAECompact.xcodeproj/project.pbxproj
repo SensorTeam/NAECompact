@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		071E414423F9156F00E75C3E /* Possums.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 071E414323F9156F00E75C3E /* Possums.mlmodel */; };
 		071E414623F918D300E75C3E /* HostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071E414523F918D300E75C3E /* HostingController.swift */; };
+		071E9E2623FA9500005AC44A /* UserDefaults+Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071E9E2523FA9500005AC44A /* UserDefaults+Keys.swift */; };
 		0732CF5323F92F310066B90B /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0732CF5223F92F310066B90B /* NavigationBar.swift */; };
 		0732CF5523F9362C0066B90B /* ConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0732CF5423F9362C0066B90B /* ConfigView.swift */; };
 		073E488523F55F21009C10B2 /* WildlifeClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 073E488423F55F21009C10B2 /* WildlifeClassifier.mlmodel */; };
@@ -29,6 +30,8 @@
 /* Begin PBXFileReference section */
 		071E414323F9156F00E75C3E /* Possums.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = Possums.mlmodel; sourceTree = "<group>"; };
 		071E414523F918D300E75C3E /* HostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostingController.swift; sourceTree = "<group>"; };
+		071E9E2423FA94EC005AC44A /* NAECompact.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NAECompact.entitlements; sourceTree = "<group>"; };
+		071E9E2523FA9500005AC44A /* UserDefaults+Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Keys.swift"; sourceTree = "<group>"; };
 		0732CF5223F92F310066B90B /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		0732CF5423F9362C0066B90B /* ConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigView.swift; sourceTree = "<group>"; };
 		073E488423F55F21009C10B2 /* WildlifeClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = WildlifeClassifier.mlmodel; sourceTree = "<group>"; };
@@ -78,6 +81,7 @@
 		07AF297623F1509E00DC4BBC /* NAECompact */ = {
 			isa = PBXGroup;
 			children = (
+				071E9E2423FA94EC005AC44A /* NAECompact.entitlements */,
 				07C67BE023F6AD7D000450E6 /* Resources */,
 				07C67BE223F6ADA6000450E6 /* Sources */,
 				07AF298823F1509F00DC4BBC /* Info.plist */,
@@ -120,6 +124,7 @@
 				07F96BDB23F8ABF500DBC43B /* Detection.swift */,
 				07F96BDD23F8C61800DBC43B /* ImagePicker.swift */,
 				071E414523F918D300E75C3E /* HostingController.swift */,
+				071E9E2523FA9500005AC44A /* UserDefaults+Keys.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -207,6 +212,7 @@
 				07F96BDE23F8C61800DBC43B /* ImagePicker.swift in Sources */,
 				0732CF5523F9362C0066B90B /* ConfigView.swift in Sources */,
 				07F96BDC23F8ABF500DBC43B /* Detection.swift in Sources */,
+				071E9E2623FA9500005AC44A /* UserDefaults+Keys.swift in Sources */,
 				071E414423F9156F00E75C3E /* Possums.mlmodel in Sources */,
 				07F96BDA23F8A8F200DBC43B /* MainViewModel.swift in Sources */,
 			);
@@ -344,6 +350,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = NAECompact/NAECompact.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"NAECompact/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = 485RTMW4S8;
@@ -364,6 +371,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = NAECompact/NAECompact.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"NAECompact/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = 485RTMW4S8;

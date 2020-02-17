@@ -15,11 +15,20 @@ import ImageIO
 
 class MainViewModel: ObservableObject {
 
+    let willChange = PassthroughSubject<Void, Never>()
+
     @Published var image: UIImage? = nil
     @Published var boundingBox: CGRect? = nil
     @Published var detections: [Detection] = []
 
     var model: MLModel = Possums().model
+
+    var usesRealModel: Bool = UserDefaults.usesRealModel {
+        willSet {
+            UserDefaults.usesRealModel = newValue
+            willChange.send()
+        }
+    }
 
     private lazy var classificationRequest: VNCoreMLRequest = {
         do {
