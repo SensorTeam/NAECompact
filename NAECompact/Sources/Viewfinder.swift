@@ -13,6 +13,8 @@ struct Viewfinder: View {
     @Binding var image: UIImage?
     @Binding var boundingBox: CGRect?
 
+    @State private var boundingBoxOpacity: Double = 0.5
+
     var body: some View {
         ZStack {
             // Image container
@@ -42,6 +44,14 @@ struct Viewfinder: View {
                         .foregroundColor(Color("Accent"))
                         .frame(maxWidth: self.boundingBox!.width * geometry.size.width, maxHeight: self.boundingBox!.height * geometry.size.height)
                         .offset(x: self.boundingBox!.minX * geometry.size.width, y: (1 - self.boundingBox!.minY - self.boundingBox!.height) * geometry.size.height)
+                        .opacity(self.boundingBoxOpacity)
+                        .onAppear {
+                            let baseAnimation = Animation.linear(duration: 0.1)
+                            let repeated = baseAnimation.repeatCount(3).delay(0.25)
+                            withAnimation(repeated) {
+                                self.boundingBoxOpacity = 1.0
+                            }
+                    }
                 }
 
                 // Border overlay
