@@ -10,6 +10,8 @@ import SwiftUI
 
 struct Viewfinder: View {
 
+    // Make this non-binding
+
     @Binding var image: UIImage?
     @Binding var boundingBox: CGRect?
 

@@ -11,6 +11,7 @@ import SwiftUI
 struct DetectionsList: View {
 
     @Binding var detections: [Detection]
+    // turn into non-binding
 
     var body: some View {
         ZStack {

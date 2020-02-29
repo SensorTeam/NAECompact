@@ -20,6 +20,7 @@
 		07AF298123F1509F00DC4BBC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07AF298023F1509F00DC4BBC /* Assets.xcassets */; };
 		07AF298423F1509F00DC4BBC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07AF298323F1509F00DC4BBC /* Preview Assets.xcassets */; };
 		07AF298723F1509F00DC4BBC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07AF298523F1509F00DC4BBC /* LaunchScreen.storyboard */; };
+		07B4E74F23FD28300019533B /* AnimalClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B4E74E23FD28300019533B /* AnimalClassifier.swift */; };
 		07CB393723F8079700AD8D4B /* Viewfinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CB393623F8079700AD8D4B /* Viewfinder.swift */; };
 		07F96BD423F8137600DBC43B /* DetectionsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F96BD323F8137600DBC43B /* DetectionsList.swift */; };
 		07F96BDA23F8A8F200DBC43B /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F96BD923F8A8F200DBC43B /* MainViewModel.swift */; };
@@ -44,6 +45,7 @@
 		07AF298323F1509F00DC4BBC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		07AF298623F1509F00DC4BBC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		07AF298823F1509F00DC4BBC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		07B4E74E23FD28300019533B /* AnimalClassifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalClassifier.swift; sourceTree = "<group>"; };
 		07CB393623F8079700AD8D4B /* Viewfinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Viewfinder.swift; sourceTree = "<group>"; };
 		07F96BD323F8137600DBC43B /* DetectionsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectionsList.swift; sourceTree = "<group>"; };
 		07F96BD923F8A8F200DBC43B /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
@@ -62,6 +64,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		071E9E2723FD2407005AC44A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0732CF5423F9362C0066B90B /* ConfigView.swift */,
+				07F96BD323F8137600DBC43B /* DetectionsList.swift */,
+				07F96BDD23F8C61800DBC43B /* ImagePicker.swift */,
+				0757769023F804E6000411CE /* MainView.swift */,
+				0732CF5223F92F310066B90B /* NavigationBar.swift */,
+				07CB393623F8079700AD8D4B /* Viewfinder.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		071E9E2823FD26D4005AC44A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				071E9E2523FA9500005AC44A /* UserDefaults+Keys.swift */,
+				07F96BDB23F8ABF500DBC43B /* Detection.swift */,
+				07B4E74E23FD28300019533B /* AnimalClassifier.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		07AF296B23F1509E00DC4BBC = {
 			isa = PBXGroup;
 			children = (
@@ -98,6 +123,16 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		07B4E75023FD3B4F0019533B /* Infrastructure */ = {
+			isa = PBXGroup;
+			children = (
+				07AF297723F1509E00DC4BBC /* AppDelegate.swift */,
+				071E414523F918D300E75C3E /* HostingController.swift */,
+				07AF297923F1509E00DC4BBC /* SceneDelegate.swift */,
+			);
+			path = Infrastructure;
+			sourceTree = "<group>";
+		};
 		07C67BE023F6AD7D000450E6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -113,18 +148,10 @@
 		07C67BE223F6ADA6000450E6 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				07AF297723F1509E00DC4BBC /* AppDelegate.swift */,
-				0732CF5423F9362C0066B90B /* ConfigView.swift */,
-				07AF297923F1509E00DC4BBC /* SceneDelegate.swift */,
+				07B4E75023FD3B4F0019533B /* Infrastructure */,
+				071E9E2823FD26D4005AC44A /* Model */,
+				071E9E2723FD2407005AC44A /* Views */,
 				07F96BD923F8A8F200DBC43B /* MainViewModel.swift */,
-				0757769023F804E6000411CE /* MainView.swift */,
-				07CB393623F8079700AD8D4B /* Viewfinder.swift */,
-				07F96BD323F8137600DBC43B /* DetectionsList.swift */,
-				0732CF5223F92F310066B90B /* NavigationBar.swift */,
-				07F96BDB23F8ABF500DBC43B /* Detection.swift */,
-				07F96BDD23F8C61800DBC43B /* ImagePicker.swift */,
-				071E414523F918D300E75C3E /* HostingController.swift */,
-				071E9E2523FA9500005AC44A /* UserDefaults+Keys.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -208,6 +235,7 @@
 				07AF297823F1509E00DC4BBC /* AppDelegate.swift in Sources */,
 				07AF297A23F1509E00DC4BBC /* SceneDelegate.swift in Sources */,
 				071E414623F918D300E75C3E /* HostingController.swift in Sources */,
+				07B4E74F23FD28300019533B /* AnimalClassifier.swift in Sources */,
 				073E488523F55F21009C10B2 /* WildlifeClassifier.mlmodel in Sources */,
 				07F96BDE23F8C61800DBC43B /* ImagePicker.swift in Sources */,
 				0732CF5523F9362C0066B90B /* ConfigView.swift in Sources */,

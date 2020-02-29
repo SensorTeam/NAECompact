@@ -10,6 +10,8 @@ import SwiftUI
 
 struct NavigationBar: View {
 
+    // use regular SwiftUI navigation view
+
     var title: String = ""
     var symbol: String = "ellipsis"
     var action: (() -> Void)

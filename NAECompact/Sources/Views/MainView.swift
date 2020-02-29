@@ -11,6 +11,7 @@ import SwiftUI
 struct MainView: View {
 
     @ObservedObject var mainViewModel: MainViewModel
+    @State private var image: UIImage?
     @State private var showingImagePicker: Bool = false
     @State private var showingConfig: Bool = false
 
@@ -35,22 +36,25 @@ struct MainView: View {
 
                 // Image Viewfinder
                 Button(action: {
-                    withAnimation: do {
-                        self.showingImagePicker.toggle()
-                    }
+                    self.showingImagePicker.toggle()
                 }) {
-                    Viewfinder(image: $mainViewModel.image, boundingBox: $mainViewModel.boundingBox)
+                    Viewfinder(image: self.$image, boundingBox: $mainViewModel.boundingBox)
                         .frame(maxHeight: 272.0)
-                        .sheet(isPresented: $showingImagePicker, onDismiss: {
-                            self.mainViewModel.startClassification()
-                        }) {
-                            ImagePicker(image: self.$mainViewModel.image)
+                        .sheet(isPresented: $showingImagePicker) {
+                            ImagePicker { image in
+                                guard let image = image else {
+                                    return
+                                }
+
+                                self.image = image
+                                self.mainViewModel.startClassification(for: image)
+                            }
                         }
                 }
                 .buttonStyle(PlainButtonStyle())
 
                 // Detections List
-                if (mainViewModel.image != nil) {
+                if (image != nil) {
                     DetectionsList(detections: $mainViewModel.detections)
                 }
             }
